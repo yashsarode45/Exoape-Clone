@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# # ExoApe Clone 🦍 - Page Transitions & Debounced Scroll Triggered Animations
+A clone of the Exo Ape website, built from scratch with **React (TypeScript)**, **GSAP**, **Motion (Framer Motion)**, and **Lenis** to showcase advanced front-end animation techniques and smooth scrolling experiences.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[**Live Demo**](https://exoape-clone-yash.vercel.app/)
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/aed8fd2d-c6fa-49fd-8b89-cdd226036431" />
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/ff2bcb41-1cb8-4f9b-960e-89f3b96148e9" />
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Features
 
-## Expanding the ESLint configuration
+1. **🌊 Smooth Scroll (Lenis):** Enjoy a seamless scrolling experience powered by Lenis, implemented within a fixed container layout. 
+2. **👀 Context-Aware Header:** The header dynamically changes its elements based on the current scroll position and the section visible in the viewport. 
+3. **🎬 Elegant Page Transitions:** Smooth and visually appealing transitions between pages or sections enhance the user flow. 
+4. **🚀 Debounced Scroll Animations:** Animations trigger on debounced scroll so that even on small or large scroll, only a single page transition is triggered. 
+5. **↔️ Horizontal Scroll Interaction:** * Scroll-linked horizontal movement creates an engaging sideways exploration. * Clicking a 'close' element smoothly transitions the horizontal section back to its origin and executes a page transition out. 
+6. **📌 Pin Container Effects:** Utilizes GSAP's ScrollTrigger to 'pin' elements during scroll, creating focused interaction points. 
+7. **🖱️ Custom Cursor with Hover Effects:** A unique custom cursor provides visual feedback, changing its appearance or displaying text when hovering over specific interactive elements.
+8. **🗜️ Sticky Footer:** The Footer section appears as we scroll down, acting like it is present in place, and the content above it moves above to reveal the content.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### ⚙️ Technical Excellence
+- 🧩 Component-driven architecture
+- 🛡 Type-safe animations with TypeScript
+- 🎯 Performance-optimized animations having proper cleanup
 
-- Configure the top-level `parserOptions` property like this:
+## 🛠️ Tech Stack
+- ⚛️ React Typescript + Vite
+- 🎬 GSAP (GreenSock Animation Platform)
+- 🌀 Motion
+- 🎨 Tailwind CSS
+- 📜 Lenis Smooth Scroll
+- 📦 NPM Package Management
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## ✨ Acknowledgements 
+This project is inspired by the design and animations of the original [Exoape](https://www.exoape.com/) website. It serves as a learning exercise and a showcase of animation capabilities.
