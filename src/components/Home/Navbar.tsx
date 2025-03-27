@@ -207,7 +207,7 @@ const Navbar = ({
         </div>
 
         <div className="links overflow-hidden hidden sm:flex items-center gap-10">
-          <div className="sm:flex items-center gap-10">
+          <div className="sm:flex items-center gap-5">
             <Link to={"/work"} className=" relative group">
               <a
                 style={{
@@ -229,7 +229,10 @@ const Navbar = ({
             >
               Original
             </Link>
-            <Link to={"https://github.com/yashsarode45"} target="blank">
+            <Link
+              to={"https://github.com/yashsarode45/Exoape-Clone"}
+              target="blank"
+            >
               <FaGithub
                 style={{
                   color: logoColor,
@@ -237,7 +240,7 @@ const Navbar = ({
                 className=" w-[1.5vw] h-[2vw] hover:text-black transition-all"
               />
             </Link>
-            <Link to={"https://www.linkedin.com/feed/"} target="blank">
+            <Link to={"https://www.linkedin.com/in/yashsarode/"} target="blank">
               <FaLinkedin
                 style={{
                   color: logoColor,
