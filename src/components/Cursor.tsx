@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, useAnimationControls, useSpring } from "framer-motion";
 
 const Cursor = ({
@@ -18,7 +18,7 @@ const Cursor = ({
   const springY = useSpring(mousePosition.y, springConfig);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: e.clientX,
         y: e.clientY,

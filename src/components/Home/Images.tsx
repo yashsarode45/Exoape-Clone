@@ -1,6 +1,5 @@
 import { useGSAP } from "@gsap/react";
-import gsap, { Expo, ScrollTrigger } from "gsap/all";
-import React, { useEffect } from "react";
+import gsap, { Expo } from "gsap/all";
 
 const Images = () => {
   const position = [

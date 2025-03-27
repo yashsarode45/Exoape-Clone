@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Home/Navbar";
 import Cursor from "./components/Cursor";
 import Home from "./components/Home/Home";
