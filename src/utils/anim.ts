@@ -1,5 +1,4 @@
 import { type AnimationProps } from "framer-motion";
-import { initial } from "lodash";
 
 export const easeOutExpo = [0.16, 1, 0.3, 1];
 export const easeInExpo = [0.5, 0, 0.75, 0];
