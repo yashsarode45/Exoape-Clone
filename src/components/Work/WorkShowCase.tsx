@@ -26,49 +26,57 @@ const WorkShowCase = ({ setLogoColor }: WorkSpaceProps) => {
   const [showMoreProject, setShowMoreProject] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const latestDeltaSignRef = useRef<number | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+
   useEffect(() => {
     setIsInitialRender(false);
   }, []);
 
-  const debouncedWheelHandler = useRef(
+  const processDeltaSign = useCallback(
     debounce(
-      (deltaSign: number) => {
-        // Called immediately on the first event, then no more calls
-        // for the next 100ms
-        console.log("deltaSign", deltaSign);
+      () => {
+        const deltaSign = latestDeltaSignRef.current;
+        if (deltaSign === null) return;
+
         setDirection(deltaSign);
         setCurrentNumber((prevNumber) => {
           if (deltaSign > 0) {
-            // Scrolling down
             return prevNumber === 12 ? 1 : prevNumber + 1;
           } else {
-            // Scrolling up
             return prevNumber === 1 ? 12 : prevNumber - 1;
           }
         });
+        setIsAnimating(true);
+        latestDeltaSignRef.current = null;
       },
       100,
-      { leading: true, trailing: false }
-    )
-  ).current;
+      {
+        leading: true,
+        trailing: false,
+      }
+    ),
+    []
+  );
 
   const handleWheel = useCallback(
     (e: WheelEvent) => {
-      console.log("e.deltaY", e.deltaY);
       e.preventDefault();
       e.stopPropagation();
       const deltaSign = e.deltaY > 0 ? 1 : -1;
-      // For avoiding stale events issue
-      debouncedWheelHandler(deltaSign);
+      latestDeltaSignRef.current = deltaSign;
+
+      if (!isAnimating) {
+        processDeltaSign();
+      }
     },
-    [debouncedWheelHandler]
+    [isAnimating, processDeltaSign]
   );
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Attach a native event listener with passive: false so we can preventDefault
     container.addEventListener("wheel", handleWheel, { passive: false });
     return () => {
       container.removeEventListener("wheel", handleWheel);
@@ -115,8 +123,15 @@ const WorkShowCase = ({ setLogoColor }: WorkSpaceProps) => {
           duration: 1.3,
           ease: "power4.out",
         },
+        onUpdate: function () {
+          if (this.progress() >= 0.9) {
+            setIsAnimating(false);
+          }
+        },
         onComplete: () => {
-          console.log("scroll completed");
+          if (latestDeltaSignRef.current !== null) {
+            processDeltaSign.cancel();
+          }
         },
       });
 
