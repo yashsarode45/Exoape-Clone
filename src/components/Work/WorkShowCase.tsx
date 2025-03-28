@@ -24,26 +24,56 @@ const WorkShowCase = ({ setLogoColor }: WorkSpaceProps) => {
   const tl = useRef<gsap.core.Timeline>();
   const [isInitialRender, setIsInitialRender] = useState(true);
   const [showMoreProject, setShowMoreProject] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setIsInitialRender(false);
   }, []);
 
-  // Debounced onWheel handler
+  const debouncedWheelHandler = useRef(
+    debounce(
+      (deltaSign: number) => {
+        // Called immediately on the first event, then no more calls
+        // for the next 100ms
+        console.log("deltaSign", deltaSign);
+        setDirection(deltaSign);
+        setCurrentNumber((prevNumber) => {
+          if (deltaSign > 0) {
+            // Scrolling down
+            return prevNumber === 12 ? 1 : prevNumber + 1;
+          } else {
+            // Scrolling up
+            return prevNumber === 1 ? 12 : prevNumber - 1;
+          }
+        });
+      },
+      100,
+      { leading: true, trailing: false }
+    )
+  ).current;
+
   const handleWheel = useCallback(
-    debounce((event) => {
-      setDirection(event.deltaY > 0 ? 1 : -1);
-      setCurrentNumber((prevNumber) => {
-        if (event.deltaY > 0) {
-          // Scrolling down
-          return prevNumber === 12 ? 1 : prevNumber + 1;
-        } else {
-          // Scrolling up
-          return prevNumber === 1 ? 12 : prevNumber - 1;
-        }
-      });
-    }, 200),
-    []
+    (e: WheelEvent) => {
+      console.log("e.deltaY", e.deltaY);
+      e.preventDefault();
+      e.stopPropagation();
+      const deltaSign = e.deltaY > 0 ? 1 : -1;
+      // For avoiding stale events issue
+      debouncedWheelHandler(deltaSign);
+    },
+    [debouncedWheelHandler]
   );
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Attach a native event listener with passive: false so we can preventDefault
+    container.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, [handleWheel]);
 
   Overflow(".headings h2 span", 0, 1.3, [currentNumber, direction]);
   Overflow(".headings p span", 0.5, 1.3, [currentNumber, direction]);
@@ -84,6 +114,9 @@ const WorkShowCase = ({ setLogoColor }: WorkSpaceProps) => {
         defaults: {
           duration: 1.3,
           ease: "power4.out",
+        },
+        onComplete: () => {
+          console.log("scroll completed");
         },
       });
 
@@ -298,7 +331,7 @@ const WorkShowCase = ({ setLogoColor }: WorkSpaceProps) => {
   return (
     <motion.div
       key={"home"}
-      className={`workshowcase ${absoluteStyle} bg-[#0d0e13] origin-top-left`}
+      className={`workshowcase ${absoluteStyle} bg-[#0d0e13] origin-top-left select-none overscroll-none`}
       {...anim(outerDivTransition)}
     >
       <motion.div
@@ -312,7 +345,7 @@ const WorkShowCase = ({ setLogoColor }: WorkSpaceProps) => {
       >
         <section
           id="experience"
-          onWheel={handleWheel}
+          ref={containerRef}
           className={`experience z-[2] ${absoluteStyle} select-none flex justify-center items-center`}
         >
           <div className={`projects ${absoluteStyle}`}>
