@@ -1,4 +1,4 @@
-# # ExoApe Clone 🦍 - Page Transitions & Debounced Scroll Triggered Animations
+# ExoApe Clone 🦍 - Page Transitions & Debounced Scroll Triggered Animations
 A clone of the Exo Ape website, built from scratch with **React (TypeScript)**, **GSAP**, **Motion (Framer Motion)**, and **Lenis** to showcase advanced front-end animation techniques and smooth scrolling experiences.
 
 [**Live Demo**](https://exoape-clone-yash.vercel.app/)
